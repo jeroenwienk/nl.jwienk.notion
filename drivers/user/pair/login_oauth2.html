@@ -1,0 +1,132 @@
+<style>
+  @import "/css/deprecated-login-oauth2.css";
+
+  .__private__homey-login-oauth2 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .__private__homey-login-oauth2__hint {
+    font-size: var(--homey-font-size-small);
+    text-align: center;
+    margin-top: var(--homey-su-4);
+    margin-bottom: var(--homey-su-4);
+  }
+
+  .__private__homey-login-oauth2__logo {
+    display: block;
+    position: relative;
+    width: 66%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: var(--homey-su-4);
+    margin-bottom: var(--homey-su-4);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .__private__homey-login-oauth2__logo:not([style]) {
+    display: none;
+  }
+
+  .__private__homey-login-oauth2__button {
+    margin-top: auto;
+  }
+
+</style>
+
+<div class="__private__homey-login-oauth2" id="$HY_TMPL_ID">
+  <div class="__private__homey-login-oauth2__body">
+    <div id="homey-login-oauth2-logo" class="__private__homey-login-oauth2__logo"></div>
+    <p id="homey-login-oauth2-hint" class="__private__homey-login-oauth2__hint"></p>
+  </div>
+  <div class="__private__homey-login-oauth2__button">
+    <button id="homey-login-oauth2-button"
+            class="homey-button-primary-large-full-shadow hy-nostyle"
+            disabled="disabled"></button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  (function () {
+    const $tmpl = document.getElementById('$HY_TMPL_ID');
+    const $hint = $tmpl.querySelector('#homey-login-oauth2-hint');
+    const $logo = $tmpl.querySelector('#homey-login-oauth2-logo');
+    const $button = $tmpl.querySelector('#homey-login-oauth2-button');
+    let popupUrl;
+    let manual;
+
+    Homey.setTitle(Homey.__('__tmpl.login_oauth2.title'));
+    Homey.showLoadingOverlay();
+
+    Homey.getOptions(function (err, options) {
+      if (err) return Homey.error(err);
+
+      if (options.title) {
+        Homey.setTitle(Homey.__(options.title));
+      }
+
+      if (options.subtitle) {
+        Homey.setSubtitle(Homey.__(options.subtitle));
+      }
+
+      if (options.logo) {
+        $logo.style.backgroundImage = 'url(' + options.logo + ')';
+      }
+
+      manual = options.button || options.hint;
+
+      if (manual) {
+        $hint.style.display = 'block';
+        $hint.textContent = Homey.__(options.hint);
+
+        $button.style.display = 'block';
+        $button.textContent = options.button
+          ? Homey.__(options.button)
+          : Homey.__('__tmpl.login_oauth2.login');
+        $button.addEventListener('click', function () {
+          $hint.style.display = 'none';
+          $button.style.display = 'none';
+          openPopup();
+        });
+      } else {
+        $hint.style.display = 'none';
+        $button.style.display = 'none';
+      }
+
+      Homey.on('url', function (url) {
+        popupUrl = url;
+        if (manual) {
+          $button.disabled = false;
+          Homey.hideLoadingOverlay();
+        } else {
+          openPopup();
+        }
+      });
+
+      Homey.on('authorized', function (data, callback) {
+        callback();
+        Homey.nextView();
+        Homey.hideLoadingOverlay();
+      });
+
+      Homey.on('error', function (err, callback) {
+        callback();
+        Homey.hideLoadingOverlay();
+        Homey.error(err);
+      });
+
+      function openPopup() {
+        Homey.showLoadingOverlay(Homey.__('__tmpl.login_oauth2.loading'));
+        Homey.popup(popupUrl, function (err) {
+          if (err) return Homey.done();
+        });
+      }
+    });
+  })();
+</script>

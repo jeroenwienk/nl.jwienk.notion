@@ -1,0 +1,32 @@
+{
+  "actions": [
+    {
+      "id": "json",
+      "title": {
+        "en": "Insert JSON into database"
+      },
+      "titleFormatted": {
+        "en": "Insert [[json]] into [[database]]"
+      },
+      "hint": {
+        "en": "Uses JSON.parse to evaluate the argument."
+      },
+      "args": [
+        {
+          "type": "autocomplete",
+          "name": "database",
+          "title": { "en": "Database" },
+          "placeholder": { "en": "My Database" }
+        },
+        {
+          "type": "text",
+          "name": "json",
+          "title": { "en": "JSON" },
+          "placeholder": {
+            "en": "{ \"field\": \"value\" }"
+          }
+        }
+      ]
+    }
+  ]
+}
