@@ -29,6 +29,8 @@ class Device extends Homey.Device {
       return database.id === databaseId;
     });
 
+    this.log(database.properties);
+
     const getProperty = ({ property, value }) => {
       this.log({
         property,

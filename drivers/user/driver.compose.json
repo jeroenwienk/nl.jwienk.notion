@@ -1,12 +1,10 @@
 {
   "name": {
-    "en": "user"
+    "en": "User"
   },
   "class": "other",
   "capabilities": [],
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "connectivity": [],
   "images": {
     "small": "{{driverAssetsPath}}/images/small.png",
