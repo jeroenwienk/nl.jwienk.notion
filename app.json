@@ -38,7 +38,7 @@
           "en": "Insert [[json]] into [[database]]"
         },
         "hint": {
-          "en": "Uses JSON.parse to evaluate the argument.\n\nConsider a database with 3 columns: Name (a title type), Age (a number type) and Occupation (a text type). An example input would look like this:\n\n{\n  \"Name\": \"My Name\",\n  \"Number\": 10,\n  \"Occupation\": \"Astronaut\"\n}\n\nOther supported types:\n\nStatus e.g. \"MyStatus\": \"MyOption\"\nCheckbox e.g \"MyCheckbox\": true"
+          "en": "Uses JSON.parse to evaluate the argument.\n\nConsider a database with 3 columns: Name (a title type), Age (a number type) and Occupation (a text type). An example input would look like this:\n\n{\n  \"Name\": \"My Name\",\n  \"Age\": 10,\n  \"Occupation\": \"Astronaut\"\n}\n\nOther supported types:\n\nStatus e.g. \"MyStatus\": \"MyOption\"\nCheckbox e.g \"MyCheckbox\": true"
         },
         "args": [
           {
