@@ -8,7 +8,6 @@ class Driver extends Homey.Driver {
     const card = this.homey.flow.getActionCard('json');
 
     card.registerRunListener(async (args, state) => {
-      this.log({ args, state });
       await args.device.insertJSON({
         databaseId: args.database.id,
         json: args.json,

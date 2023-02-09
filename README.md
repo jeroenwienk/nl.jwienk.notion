@@ -1,3 +1,3 @@
 # Notion
 
-Adds support for MyBrand devices.
+Notion app for Homey.
