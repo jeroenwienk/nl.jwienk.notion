@@ -5,12 +5,17 @@ const { Client } = require('@notionhq/client');
 class Device extends Homey.Device {
   async onInit() {
     this.log('Device.onInit');
+
+    // Client is always stored by the pair/repair sessions. We can onInit manually after repair.
     const client = this.getStoreValue('client');
 
     this.notionClient = new Client({
       auth: client.access_token,
     });
 
+    // TODO
+    // Update databases at some point.
+    // If this fails should we retry. What should we show to the user.
     const response = await this.notionClient.search({
       filter: {
         property: 'object',
@@ -18,25 +23,24 @@ class Device extends Homey.Device {
       },
     });
     this.databases = response.results;
-    this.log(response.results);
   }
 
   async insertJSON({ databaseId, json }) {
     const parsed = JSON.parse(json);
-    this.log(parsed);
+
+    if (this.databases == null) {
+      throw new Error('Databases Not Loaded');
+    }
 
     const database = this.databases.find((database) => {
       return database.id === databaseId;
     });
 
-    this.log(database.properties);
+    if (database == null) {
+      throw new Error('Database Not Found');
+    }
 
     const getProperty = ({ property, value }) => {
-      this.log({
-        property,
-        value,
-      });
-
       switch (property.type) {
         case 'title':
           return [
@@ -70,9 +74,11 @@ class Device extends Homey.Device {
     };
 
     const properties = {};
+
     for (const [propertyName, property] of Object.entries(
       database.properties
     )) {
+      // If the user provided JSON contains the database property name.
       if (parsed[propertyName] != null) {
         properties[propertyName] = {
           id: property.id,
@@ -84,8 +90,6 @@ class Device extends Homey.Device {
         };
       }
     }
-
-    this.log(properties);
 
     const response = await this.notionClient.pages.create({
       parent: {
