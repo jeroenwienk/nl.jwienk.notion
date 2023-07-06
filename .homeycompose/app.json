@@ -3,18 +3,14 @@
   "version": "1.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
-  "platforms": [
-    "local"
-  ],
+  "platforms": ["local"],
   "name": {
     "en": "Notion"
   },
   "description": {
     "en": "One workspace. Every team."
   },
-  "category": [
-    "internet"
-  ],
+  "category": ["internet"],
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
@@ -25,5 +21,11 @@
     "name": "Jeroen Wienk",
     "email": "jeroen.wienk@athom.nl"
   },
-  "brandColor": "#000000"
+  "brandColor": "#000000",
+  "source": "https://github.com/jeroenwienk/nl.jwienk.notion",
+  "support": "https://github.com/jeroenwienk/nl.jwienk.notion/issues",
+  "homepage": "https://github.com/jeroenwienk/nl.jwienk.notion",
+  "bugs": {
+    "url": "https://github.com/jeroenwienk/nl.jwienk.notion/issues"
+  }
 }

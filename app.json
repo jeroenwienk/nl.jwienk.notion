@@ -27,6 +27,12 @@
     "email": "jeroen.wienk@athom.nl"
   },
   "brandColor": "#000000",
+  "source": "https://github.com/jeroenwienk/nl.jwienk.notion",
+  "support": "https://github.com/jeroenwienk/nl.jwienk.notion/issues",
+  "homepage": "https://github.com/jeroenwienk/nl.jwienk.notion",
+  "bugs": {
+    "url": "https://github.com/jeroenwienk/nl.jwienk.notion/issues"
+  },
   "flow": {
     "actions": [
       {

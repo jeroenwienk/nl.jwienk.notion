@@ -20,7 +20,7 @@ class PairSession extends Homey.SimpleClass {
   }
 
   async onShowView(viewId) {
-    this.log('onShowView', viewId);
+    this.log('PairSession.onShowView', viewId);
 
     if (viewId === 'login_oauth2') {
       this.onShowViewLoginOAuth2();
@@ -46,12 +46,12 @@ class PairSession extends Homey.SimpleClass {
   }
 
   onUrl(url) {
-    this.log('onUrl');
+    this.log('PairSession.onUrl');
     this.socket.emit('url', url).catch(this.error);
   }
 
   onCode(code) {
-    this.log('onCode');
+    this.log('PairSession.onCode');
     // todo this can have state aswell from notion
     (async () => {
       try {
@@ -76,7 +76,6 @@ class PairSession extends Homey.SimpleClass {
         // Repair
         if (this.device != null) {
           await this.device.setStoreValue('client', this.result);
-          this.device.client = this.result;
           await this.device.onInit();
         }
 
@@ -90,7 +89,7 @@ class PairSession extends Homey.SimpleClass {
   }
 
   async onListDevices() {
-    this.log('onListDevices');
+    this.log('PairSession.onListDevices');
 
     return [
       {
@@ -107,12 +106,12 @@ class PairSession extends Homey.SimpleClass {
   }
 
   async onAddDevice(device) {
-    this.log('onAddDevice');
+    this.log('PairSession.onAddDevice');
     this.log({ device });
   }
 
   async onDisconnect() {
-    this.log('onDisconnect');
+    this.log('PairSession.onDisconnect');
   }
 }
 

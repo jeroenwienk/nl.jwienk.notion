@@ -6,7 +6,7 @@ class Device extends Homey.Device {
   async onInit() {
     this.log('Device.onInit');
 
-    // Client is always stored by the pair/repair sessions. We can onInit manually after repair.
+    // Client is always stored by the pair/repair sessions. We onInit manually after repair.
     const client = this.getStoreValue('client');
 
     this.notionClient = new Client({
