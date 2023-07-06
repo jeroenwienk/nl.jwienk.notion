@@ -10,5 +10,8 @@
   },
   "1.0.3": {
     "en": "Add support links"
+  },
+  "1.0.4": {
+    "en": "Added community topic id"
   }
 }
