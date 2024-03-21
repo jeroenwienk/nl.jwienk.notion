@@ -27,6 +27,27 @@
           }
         }
       ]
+    },
+    {
+      "deprecated": true,
+      "id": "query",
+      "title": {
+        "en": "Query a database"
+      },
+      "titleFormatted": {
+        "en": "Query [[database]]"
+      },
+      "hint": {
+        "en": ""
+      },
+      "args": [
+        {
+          "type": "autocomplete",
+          "name": "database",
+          "title": { "en": "Database" },
+          "placeholder": { "en": "My Database" }
+        }
+      ]
     }
   ]
 }

@@ -3,28 +3,6 @@ const Homey = require('homey');
 
 const { PairSession } = require('./PairSession');
 
-// TODO
-// {
-//   "id": "query",
-//   "title": {
-//     "en": "Query a database"
-//   },
-//   "titleFormatted": {
-//     "en": "Query [[database]]"
-//   },
-//   "hint": {
-//     "en": ""
-//   },
-//   "args": [
-//     {
-//       "type": "autocomplete",
-//       "name": "database",
-//       "title": { "en": "Database" },
-//       "placeholder": { "en": "My Database" }
-//     }
-//   ]
-// }
-
 class Driver extends Homey.Driver {
   async onInit() {
     const jsonCard = this.homey.flow.getActionCard('json');
@@ -37,21 +15,21 @@ class Driver extends Homey.Driver {
       });
     });
 
-    // queryCard.registerRunListener(async (args, state) => {
-    //   await args.device.query({
-    //     databaseId: args.database.id,
-    //   });
-    // });
+    queryCard.registerRunListener(async (args, state) => {
+      await args.device.query({
+        databaseId: args.database.id,
+      });
+    });
 
     jsonCard.registerArgumentAutocompleteListener(
       'database',
       this.getDatabases.bind(this),
     );
 
-    // queryCard.registerArgumentAutocompleteListener(
-    //   'database',
-    //   this.getDatabases.bind(this),
-    // );
+    queryCard.registerArgumentAutocompleteListener(
+      'database',
+      this.getDatabases.bind(this),
+    );
   }
 
   getDatabases(query, args) {
