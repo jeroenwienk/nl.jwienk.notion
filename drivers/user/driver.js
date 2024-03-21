@@ -37,21 +37,21 @@ class Driver extends Homey.Driver {
       });
     });
 
-    queryCard.registerRunListener(async (args, state) => {
-      await args.device.query({
-        databaseId: args.database.id,
-      });
-    });
+    // queryCard.registerRunListener(async (args, state) => {
+    //   await args.device.query({
+    //     databaseId: args.database.id,
+    //   });
+    // });
 
     jsonCard.registerArgumentAutocompleteListener(
       'database',
       this.getDatabases.bind(this),
     );
 
-    queryCard.registerArgumentAutocompleteListener(
-      'database',
-      this.getDatabases.bind(this),
-    );
+    // queryCard.registerArgumentAutocompleteListener(
+    //   'database',
+    //   this.getDatabases.bind(this),
+    // );
   }
 
   getDatabases(query, args) {
