@@ -83,7 +83,16 @@
         "en": "User"
       },
       "class": "other",
-      "capabilities": [],
+      "capabilities": [
+        "button.refresh"
+      ],
+      "capabilitiesOptions": {
+        "button.refresh": {
+          "title": {
+            "en": "Refresh Databases"
+          }
+        }
+      },
       "platforms": [
         "local"
       ],
@@ -118,5 +127,16 @@
       ],
       "id": "user"
     }
-  ]
+  ],
+  "capabilities": {
+    "database": {
+      "type": "string",
+      "title": {
+        "en": "Database"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor"
+    }
+  }
 }

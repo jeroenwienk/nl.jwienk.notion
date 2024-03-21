@@ -3,7 +3,14 @@
     "en": "User"
   },
   "class": "other",
-  "capabilities": [],
+  "capabilities": ["button.refresh"],
+  "capabilitiesOptions": {
+    "button.refresh": {
+      "title": {
+        "en": "Refresh Databases"
+      }
+    }
+  },
   "platforms": ["local"],
   "connectivity": [],
   "images": {
