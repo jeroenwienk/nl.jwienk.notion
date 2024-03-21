@@ -16,9 +16,21 @@ class Driver extends Homey.Driver {
     });
 
     queryCard.registerRunListener(async (args, state) => {
-      await args.device.query({
+      const result = await args.device.query({
         databaseId: args.database.id,
+        filter: args.filter,
+        sorts: args.sorts,
       });
+
+      let serialized = null;
+
+      if (state.manual === true) {
+        serialized = JSON.stringify(result, null, 2);
+      } else {
+        serialized = JSON.stringify(result);
+      }
+
+      return { response: serialized };
     });
 
     jsonCard.registerArgumentAutocompleteListener(

@@ -76,16 +76,15 @@
         ]
       },
       {
-        "deprecated": true,
         "id": "query",
         "title": {
           "en": "Query a database"
         },
         "titleFormatted": {
-          "en": "Query [[database]]"
+          "en": "Query [[database]] [[filter]] [[sorts]]"
         },
         "hint": {
-          "en": ""
+          "en": "Uses JSON.parse to evaluate the filter argument.\n\nThe JSON representation of this filter configuration looks like this:\n\n{\n  \"and\": [\n    {\n      \"property\": \"Done\",\n      \"checkbox\": {\n        \"equals\": true\n      }\n    },\n    {\n      \"or\": [\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"A\"\n        },\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n\nFor all possible options see the link below.\n\nhttps://developers.notion.com/reference/post-database-query-filter"
         },
         "args": [
           {
@@ -101,6 +100,37 @@
             },
             "placeholder": {
               "en": "My Database"
+            }
+          },
+          {
+            "required": false,
+            "type": "text",
+            "name": "filter",
+            "title": {
+              "en": "Filter"
+            },
+            "placeholder": {
+              "en": "{ \"field\": \"value\" }"
+            }
+          },
+          {
+            "required": false,
+            "type": "text",
+            "name": "sorts",
+            "title": {
+              "en": "Sorts"
+            },
+            "placeholder": {
+              "en": "[{\n  \"property\": \"Last ordered\",\n  \"direction\": \"ascending\"\n}]"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "response",
+            "type": "string",
+            "title": {
+              "en": "Result"
             }
           }
         ]
@@ -166,7 +196,8 @@
       },
       "getable": true,
       "setable": false,
-      "uiComponent": "sensor"
+      "uiComponent": "sensor",
+      "icon": "/assets/database.svg"
     }
   }
 }

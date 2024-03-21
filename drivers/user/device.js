@@ -180,6 +180,58 @@ class Device extends Homey.Device {
     return response;
   }
 
+  async query({ databaseId, filter, sorts }) {
+    if (this.databases == null) {
+      throw new Error('Databases Not Loaded');
+    }
+
+    const database = this.databases.find((database) => {
+      return database.id === databaseId;
+    });
+
+    if (database == null) {
+      throw new Error('Database Not Found');
+    }
+
+    let parsedFilter = null;
+    let parsedSorts = null;
+
+    if (filter != null && filter !== '') {
+      parsedFilter = JSON.parse(filter);
+    }
+
+    if (sorts != null && sorts !== '') {
+      parsedSorts = JSON.parse(sorts);
+    }
+
+    const response = await this.notionClient.databases.query({
+      database_id: databaseId,
+      page_size: 10,
+      filter: parsedFilter,
+      sorts: parsedSorts,
+      // filter_properties: ['propertyID1', 'propertyID2'],
+    });
+
+    const results = [];
+
+    for (const result of response.results) {
+      const properties = {};
+      properties.id = result.id;
+
+      for (const [propertyName, property] of Object.entries(
+        result.properties,
+      )) {
+        properties[propertyName] = property;
+      }
+
+      results.push(properties);
+    }
+
+    return {
+      results,
+    };
+  }
+
   async onAdded() {
     this.log('onAdded');
   }
