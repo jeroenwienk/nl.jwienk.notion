@@ -7,6 +7,7 @@ class Driver extends Homey.Driver {
   async onInit() {
     const jsonCard = this.homey.flow.getActionCard('json');
     const queryCard = this.homey.flow.getActionCard('query');
+    const retrieveCard = this.homey.flow.getActionCard('retrieve');
 
     jsonCard.registerRunListener(async (args, state) => {
       await args.device.insertJSON({
@@ -20,6 +21,23 @@ class Driver extends Homey.Driver {
         databaseId: args.database.id,
         filter: args.filter,
         sorts: args.sorts,
+        pageSize: args.pageSize,
+      });
+
+      let serialized = null;
+
+      if (state.manual === true) {
+        serialized = JSON.stringify(result, null, 2);
+      } else {
+        serialized = JSON.stringify(result);
+      }
+
+      return { response: serialized };
+    });
+
+    retrieveCard.registerRunListener(async (args, state) => {
+      const result = await args.device.retrieve({
+        databaseId: args.database.id,
       });
 
       let serialized = null;
@@ -39,6 +57,11 @@ class Driver extends Homey.Driver {
     );
 
     queryCard.registerArgumentAutocompleteListener(
+      'database',
+      this.getDatabases.bind(this),
+    );
+
+    retrieveCard.registerArgumentAutocompleteListener(
       'database',
       this.getDatabases.bind(this),
     );

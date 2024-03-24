@@ -180,7 +180,7 @@ class Device extends Homey.Device {
     return response;
   }
 
-  async query({ databaseId, filter, sorts }) {
+  async query({ databaseId, filter, sorts, pageSize }) {
     if (this.databases == null) {
       throw new Error('Databases Not Loaded');
     }
@@ -206,7 +206,7 @@ class Device extends Homey.Device {
 
     const response = await this.notionClient.databases.query({
       database_id: databaseId,
-      page_size: 10,
+      page_size: pageSize ?? 10,
       filter: parsedFilter,
       sorts: parsedSorts,
       // filter_properties: ['propertyID1', 'propertyID2'],
@@ -230,6 +230,26 @@ class Device extends Homey.Device {
     return {
       results,
     };
+  }
+
+  async retrieve({ databaseId }) {
+    if (this.databases == null) {
+      throw new Error('Databases Not Loaded');
+    }
+
+    const database = this.databases.find((database) => {
+      return database.id === databaseId;
+    });
+
+    if (database == null) {
+      throw new Error('Database Not Found');
+    }
+
+    const response = await this.notionClient.databases.retrieve({
+      database_id: databaseId,
+    });
+
+    return response;
   }
 
   async onAdded() {

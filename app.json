@@ -78,13 +78,13 @@
       {
         "id": "query",
         "title": {
-          "en": "Query a database"
+          "en": "Query a database with filter and sort result"
         },
         "titleFormatted": {
-          "en": "Query [[database]] [[filter]] [[sorts]]"
+          "en": "Query [[database]] with [[filter]] and [[sorts]] [[pageSize]]"
         },
         "hint": {
-          "en": "Uses JSON.parse to evaluate the filter argument.\n\nThe JSON representation of this filter configuration looks like this:\n\n{\n  \"and\": [\n    {\n      \"property\": \"Done\",\n      \"checkbox\": {\n        \"equals\": true\n      }\n    },\n    {\n      \"or\": [\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"A\"\n        },\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n\nFor all possible options see the link below.\n\nhttps://developers.notion.com/reference/post-database-query-filter"
+          "en": "Uses JSON.parse to evaluate the filter and sorts argument.\n\nThe JSON format for the filter configuration looks like this:\n\n{\n  \"and\": [\n    {\n      \"property\": \"Done\",\n      \"checkbox\": {\n        \"equals\": true\n      }\n    },\n    {\n      \"or\": [\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"A\"\n        },\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n\nFor all possible filter options see the https://developers.notion.com/reference/post-database-query-filter\n\nFor sorting see https://developers.notion.com/reference/post-database-query-sort."
         },
         "args": [
           {
@@ -110,8 +110,22 @@
               "en": "Filter"
             },
             "placeholder": {
-              "en": "{ \"field\": \"value\" }"
+              "en": "{\n  \"property\": \"Power\",\n  \"number\": {\n    \"less_than\": 10\n  }\n}"
             }
+          },
+          {
+            "required": false,
+            "type": "number",
+            "name": "pageSize",
+            "title": {
+              "en": "Item Count"
+            },
+            "placeholder": {
+              "en": "Number of items to return"
+            },
+            "min": 1,
+            "max:": 100,
+            "step": 1
           },
           {
             "required": false,
@@ -121,7 +135,45 @@
               "en": "Sorts"
             },
             "placeholder": {
-              "en": "[{\n  \"property\": \"Last ordered\",\n  \"direction\": \"ascending\"\n}]"
+              "en": "[{\n  \"property\": \"Power\",\n  \"direction\": \"ascending\"\n}]"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "response",
+            "type": "string",
+            "title": {
+              "en": "Result"
+            }
+          }
+        ]
+      },
+      {
+        "id": "retrieve",
+        "title": {
+          "en": "Retrieve database"
+        },
+        "titleFormatted": {
+          "en": "Retrieve [[database]]"
+        },
+        "hint": {
+          "en": "Retrieves a database object that describes the structure and columns of a database"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=user"
+          },
+          {
+            "type": "autocomplete",
+            "name": "database",
+            "title": {
+              "en": "Database"
+            },
+            "placeholder": {
+              "en": "My Database"
             }
           }
         ],
