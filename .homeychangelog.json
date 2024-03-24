@@ -13,5 +13,8 @@
   },
   "1.0.4": {
     "en": "Added community topic id"
+  },
+  "1.10.0": {
+    "en": "- Added a card to query a database\n- Added a card to retrieve a database"
   }
 }
