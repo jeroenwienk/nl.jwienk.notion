@@ -1,6 +1,6 @@
 {
   "name": "nl.jwienk.notion",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "app.js",
   "scripts": {
     "start": "nodemon --watch . --exec \"homey app run\""
