@@ -193,8 +193,12 @@ class Device extends Homey.Device {
       throw new Error('Database Not Found');
     }
 
-    let parsedFilter = null;
-    let parsedSorts = null;
+    if (pageSize > 100) {
+      throw new Error('Item Count Exceeds Limit of 100');
+    }
+
+    let parsedFilter;
+    let parsedSorts;
 
     if (filter != null && filter !== '') {
       parsedFilter = JSON.parse(filter);
