@@ -81,7 +81,7 @@
           "en": "Query a database with filter and sort result"
         },
         "titleFormatted": {
-          "en": "Query [[database]] with [[filter]] and [[sorts]] [[pageSize]]"
+          "en": "Query [[database]] with [[filter]] and [[sorts]] and [[pageSize]]"
         },
         "hint": {
           "en": "Uses JSON.parse to evaluate the filter and sorts argument.\n\nThe JSON format for the filter configuration looks like this:\n\n{\n  \"and\": [\n    {\n      \"property\": \"Done\",\n      \"checkbox\": {\n        \"equals\": true\n      }\n    },\n    {\n      \"or\": [\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"A\"\n        },\n        {\n          \"property\": \"Tags\",\n          \"contains\": \"B\"\n        }\n      ]\n    }\n  ]\n}\n\nFor all possible filter options see the https://developers.notion.com/reference/post-database-query-filter\n\nFor sorting see https://developers.notion.com/reference/post-database-query-sort."
